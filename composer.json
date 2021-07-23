@@ -1,0 +1,24 @@
+{
+    "name": "tdoescher/svguse-bundle",
+    "description": "Inserttag to Import SVGs.",
+    "type": "contao-bundle",
+    "license": "LGPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "Torben Döscher",
+            "homepage": "https://tdoescher.de"
+        }
+    ],
+    "require": {
+        "php": ">=7.4",
+        "contao/core-bundle": "^4.11"
+    },
+    "extra": {
+        "contao-manager-plugin": "tdoescher\\SvgUseBundle\\ContaoManager\\Plugin"
+    },
+    "autoload": {
+        "psr-4": {
+            "tdoescher\\SvgUseBundle\\": "src/"
+        }
+    }
+}
