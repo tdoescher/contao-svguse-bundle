@@ -3,4 +3,4 @@
 Use this bundle to add an Contao Inserttag to use an SVG Sprite or import an SVG Icon.
 
 * {{svguse::icon-id}}
-* {{svgimport::path/to/svg/icon}} 
+* {{svgimport::path/to/svg/icon}}
