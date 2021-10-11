@@ -1,6 +1,6 @@
 {
     "name": "tdoescher/svguse-bundle",
-    "description": "Insert-Tag zum Einbunden von SVG-Dateien",
+    "description": "Insert-Tag zum Einbinden von SVG-Dateien",
     "type": "contao-bundle",
     "license": "LGPL-3.0-or-later",
     "authors": [
