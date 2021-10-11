@@ -1,4 +1,3 @@
 services:
-    tdoescher.svguse_bundle.listener.replace_insert_tags_listener:
-        class: tdoescher\SvgUseBundle\EventListener\ReplaceInsertTagsListener
+    tdoescher\SvgUseBundle\EventListener\ReplaceInsertTagsListener:
         autoconfigure: true
