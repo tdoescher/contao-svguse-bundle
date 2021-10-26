@@ -3,31 +3,37 @@
 namespace tdoescher\SvgUseBundle\EventListener;
 
 use Contao\CoreBundle\ServiceAnnotation\Hook;
+use Environment;
 
 /**
  * @Hook("replaceInsertTags")
  */
 class ReplaceInsertTagsListener
 {
-    public function __invoke(string $insertTag): ?string
+    public function __invoke(string $tag)
     {
-        $split = explode('::', $insertTag);
+        list($tag, $value) = explode('::', $tag);
 
-        if(!in_array($split[0], ['svguse', 'svgimport']) && !isset($split[1]))
+        if(!in_array($tag, ['svguse', 'svgimport']) && !isset($value))
         {
             return false;
         }
 
-        if ($split[0] === 'svguse')
+        if ($tag === 'svguse')
         {
-            return '<svg class="icon icon-'.$split[1].'"><use xlink:href="'.\Environment::get('request').'#icon-'.$split[1].'"></use></svg>';
+            return '<svg class="icon icon-'.$value.'"><use xlink:href="'.Environment::get('request').'#icon-'.$value.'"></use></svg>';
         }
 
-        if ($split[0] === 'svgimport' && file_exists(\Environment::get('documentRoot').'/../files/'.$split[1].'.svg'))
+        if ($tag === 'svgimport')
         {
-            return file_get_contents(\Environment::get('documentRoot').'/../files/'.$split[1].'.svg');
+            if(file_exists(Environment::get('documentRoot').'/../files/'.$value.'.svg'))
+            {
+                return file_get_contents(Environment::get('documentRoot').'/../files/'.$value.'.svg');
+            }
+            else
+            {
+                return false;
+            }
         }
-
-        return false;
     }
 }
