@@ -12,9 +12,11 @@ class ReplaceInsertTagsListener
 {
     public function __invoke(string $tag)
     {
-        list($tag, $value) = explode('::', $tag);
+        $list = explode('::', $tag);
+        $tag = $list[0];
+        $value = isset($list[1]) ? $list[1] : false;
 
-        if(!in_array($tag, ['svguse', 'svgimport']) && !isset($value))
+        if(!in_array($tag, ['svguse', 'svgimport']) && $value === false)
         {
             return false;
         }
