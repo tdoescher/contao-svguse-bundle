@@ -21,6 +21,11 @@ class ReplaceInsertTagsListener
             return false;
         }
 
+        if ($tag === 'svgicon')
+        {
+            return '<span class="icon-'.$value.'"></span>';
+        }
+
         if ($tag === 'svguse')
         {
             return '<svg class="icon icon-'.$value.'"><use xlink:href="'.Environment::get('request').'#icon-'.$value.'"></use></svg>';
