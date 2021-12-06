@@ -16,7 +16,7 @@ class ReplaceInsertTagsListener
         $tag = $list[0];
         $value = isset($list[1]) ? $list[1] : false;
 
-        if(!in_array($tag, ['svguse', 'svgimport']) && $value === false)
+        if(!in_array($tag, ['svgicon', 'svguse', 'svgimport']) && $value === false)
         {
             return false;
         }
