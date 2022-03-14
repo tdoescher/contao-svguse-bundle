@@ -18,7 +18,7 @@ class ReplaceInsertTagsListener
         $class = isset($list[2]) ? $list[2] : false;
         $classes = ($class) ? 'icon-'.$icon.' '.str_replace(',', ' ', trim($class)) : 'icon-'.$icon;
 
-        if(!in_array($tag, ['svgicon', 'svguse', 'svgimport']) && $icon === false)
+        if(!in_array($tag, ['svgicon', 'svguse', 'svgimport']) || $icon === false)
         {
             return false;
         }
@@ -33,16 +33,11 @@ class ReplaceInsertTagsListener
             return '<svg class="icon '.$classes.'"><use xlink:href="'.Environment::get('request').'#icon-'.$icon.'"></use></svg>';
         }
 
-        if ($tag === 'svgimport')
+        if ($tag === 'svgimport' && file_exists(Environment::get('documentRoot').'/../files/'.$icon.'.svg'))
         {
-            if(file_exists(Environment::get('documentRoot').'/../files/'.$icon.'.svg'))
-            {
-                return file_get_contents(Environment::get('documentRoot').'/../files/'.$icon.'.svg');
-            }
-            else
-            {
-                return false;
-            }
+            return file_get_contents(Environment::get('documentRoot').'/../files/'.$icon.'.svg');
         }
+
+        return false;
     }
 }
