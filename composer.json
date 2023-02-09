@@ -6,7 +6,9 @@
   "authors": [
     {
       "name": "Torben Döscher",
-      "homepage": "https://tdoescher.de"
+      "email": "mail@tdoescher.de",
+      "homepage": "https://tdoescher.de",
+      "role": "Developer"
     }
   ],
   "require": {
