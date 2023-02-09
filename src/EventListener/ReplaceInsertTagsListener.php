@@ -1,43 +1,50 @@
 <?php
 
+/**
+ * This file is part of SvgUseBundle for Contao
+ *
+ * @package     tdoescher/svguse-bundle
+ * @author      Torben Döscher <mail@tdoescher.de>
+ * @license     LGPL
+ * @copyright   tdoescher.de // WEB & IT <https://tdoescher.de>
+ */
+
 namespace tdoescher\SvgUseBundle\EventListener;
 
 use Contao\CoreBundle\ServiceAnnotation\Hook;
 use Contao\Environment;
 
-/**
- * @Hook("replaceInsertTags")
- */
+#[AsHook('replaceInsertTags', priority: 100)]
 class ReplaceInsertTagsListener
 {
-    public function __invoke(string $tag)
+  public function __invoke(string $tag)
+  {
+    $list = explode('::', $tag);
+    $tag = $list[0];
+    $icon = isset($list[1]) ? $list[1] : false;
+    $class = isset($list[2]) ? $list[2] : false;
+    $classes = ($class) ? 'icon-'.$icon.' '.str_replace(',', ' ', trim($class)) : 'icon-'.$icon;
+
+    if(!in_array($tag, ['svgicon', 'svguse', 'svgimport']) || $icon === false)
     {
-        $list = explode('::', $tag);
-        $tag = $list[0];
-        $icon = isset($list[1]) ? $list[1] : false;
-        $class = isset($list[2]) ? $list[2] : false;
-        $classes = ($class) ? 'icon-'.$icon.' '.str_replace(',', ' ', trim($class)) : 'icon-'.$icon;
-
-        if(!in_array($tag, ['svgicon', 'svguse', 'svgimport']) || $icon === false)
-        {
-            return false;
-        }
-
-        if ($tag === 'svgicon')
-        {
-            return '<span class="'.$classes.'"></span>';
-        }
-
-        if ($tag === 'svguse')
-        {
-            return '<svg class="icon '.$classes.'"><use xlink:href="'.Environment::get('request').'#icon-'.$icon.'"></use></svg>';
-        }
-
-        if ($tag === 'svgimport' && file_exists(Environment::get('documentRoot').'/../files/'.$icon.'.svg'))
-        {
-            return file_get_contents(Environment::get('documentRoot').'/../files/'.$icon.'.svg');
-        }
-
-        return false;
+      return false;
     }
+
+    if ($tag === 'svgicon')
+    {
+      return '<span class="'.$classes.'"></span>';
+    }
+
+    if ($tag === 'svguse')
+    {
+      return '<svg class="icon '.$classes.'"><use xlink:href="'.Environment::get('request').'#icon-'.$icon.'"></use></svg>';
+    }
+
+    if ($tag === 'svgimport' && file_exists(Environment::get('documentRoot').'/../files/'.$icon.'.svg'))
+    {
+      return file_get_contents(Environment::get('documentRoot').'/../files/'.$icon.'.svg');
+    }
+
+    return false;
+  }
 }

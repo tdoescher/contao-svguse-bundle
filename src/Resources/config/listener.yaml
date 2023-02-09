@@ -1,3 +1,5 @@
 services:
-    tdoescher\SvgUseBundle\EventListener\ReplaceInsertTagsListener:
-        autoconfigure: true
+  _defaults:
+    autoconfigure: true
+
+  tdoescher\SvgUseBundle\EventListener\ReplaceInsertTagsListener: ~

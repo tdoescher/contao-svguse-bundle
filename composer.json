@@ -1,24 +1,24 @@
 {
-    "name": "tdoescher/svguse-bundle",
-    "description": "Insert-Tag zum Einbinden von SVG-Dateien",
-    "type": "contao-bundle",
-    "license": "LGPL-3.0-or-later",
-    "authors": [
-        {
-            "name": "Torben Döscher",
-            "homepage": "https://tdoescher.de"
-        }
-    ],
-    "require": {
-        "php": ">=7.2",
-        "contao/core-bundle": "^4.11 || ^5.0"
-    },
-    "extra": {
-        "contao-manager-plugin": "tdoescher\\SvgUseBundle\\ContaoManager\\Plugin"
-    },
-    "autoload": {
-        "psr-4": {
-            "tdoescher\\SvgUseBundle\\": "src/"
-        }
+  "name": "tdoescher/svguse-bundle",
+  "description": "Insert-Tag zum Einbinden von SVG-Dateien",
+  "type": "contao-bundle",
+  "license": "LGPL-3.0-or-later",
+  "authors": [
+    {
+      "name": "Torben Döscher",
+      "homepage": "https://tdoescher.de"
     }
+  ],
+  "require": {
+    "php": ">=8.0",
+    "contao/core-bundle": "^4.13 || ^5.0"
+  },
+  "extra": {
+    "contao-manager-plugin": "tdoescher\\SvgUseBundle\\ContaoManager\\Plugin"
+  },
+  "autoload": {
+    "psr-4": {
+      "tdoescher\\SvgUseBundle\\": "src/"
+    }
+  }
 }
