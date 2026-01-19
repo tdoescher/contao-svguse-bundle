@@ -19,11 +19,11 @@ use tdoescher\SvgUseBundle\SvgUseBundle;
 
 class Plugin implements BundlePluginInterface
 {
-  public function getBundles(ParserInterface $parser): array
-  {
-    return [
-      BundleConfig::create(SvgUseBundle::class)
-        ->setLoadAfter([ContaoCoreBundle::class]),
-    ];
-  }
+    public function getBundles(ParserInterface $parser): array
+    {
+        return [
+            BundleConfig::create(SvgUseBundle::class)
+                ->setLoadAfter([ ContaoCoreBundle::class ]),
+        ];
+    }
 }
