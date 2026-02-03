@@ -2,8 +2,8 @@
 .env
 
 # macOS
-.nova
 .idea
+.nova
 .vscode
 .DS_Store*
 Icon^M
