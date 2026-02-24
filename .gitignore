@@ -6,5 +6,6 @@
 .nova
 .vscode
 .DS_Store*
-Icon^M
 ._*
+AGENTS.md
+Icon^M
