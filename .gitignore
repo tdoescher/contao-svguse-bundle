@@ -1,6 +1,3 @@
-# dotenv
-.env
-
 # macOS
 .idea
 .nova
@@ -8,4 +5,5 @@
 .DS_Store*
 ._*
 AGENTS.md
+CLAUDE.ms
 Icon^M
