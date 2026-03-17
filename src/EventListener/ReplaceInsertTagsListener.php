@@ -34,7 +34,7 @@ class ReplaceInsertTagsListener
         }
 
         if ($insertTag === 'svguse') {
-            return '<svg aria-hidden="true" class="' . $classes . '"><use xlink:href="#icon-' . $icon . '"></use></svg>';
+            return '<svg aria-hidden="true" class="' . $classes . '"><use href="#icon-' . $icon . '"></use></svg>';
         }
 
         if ($insertTag === 'svgimport' && file_exists(Environment::get('documentRoot') . '/../files/' . $icon . '.svg')) {
