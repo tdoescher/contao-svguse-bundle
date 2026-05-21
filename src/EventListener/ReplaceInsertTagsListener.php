@@ -11,36 +11,54 @@
 
 namespace tdoescher\SvgUseBundle\EventListener;
 
-use Contao\CoreBundle\DependencyInjection\Attribute\AsHook;
-use Contao\Environment;
+use Contao\CoreBundle\DependencyInjection\Attribute\AsInsertTag;
+use Contao\CoreBundle\InsertTag\InsertTagResult;
+use Contao\CoreBundle\InsertTag\OutputType;
+use Contao\CoreBundle\InsertTag\ResolvedInsertTag;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
-#[AsHook('replaceInsertTags', priority: 100)]
 class ReplaceInsertTagsListener
 {
-    public function __invoke(string $insertTag)
+    public function __construct(#[Autowire('%kernel.project_dir%')] private readonly string $projectDir)
     {
-        $list = explode('::', $insertTag);
-        $insertTag = $list[0];
-        $icon = $list[1] ?? false;
-        $class = $list[2] ?? false;
-        $classes = ($class) ? 'icon-' . $icon . ' ' . str_replace(',', ' ', trim($class)) : 'icon-' . $icon;
+    }
 
-        if (!in_array($insertTag, [ 'svgicon', 'svguse', 'svgimport' ]) || $icon === false) {
-            return false;
-        }
+    #[AsInsertTag('svgicon')]
+    public function renderSvgIcon(ResolvedInsertTag $insertTag): InsertTagResult
+    {
+        $icon = $insertTag->getParameters()->get(0);
 
-        if ($insertTag === 'svgicon') {
-            return '<span aria-hidden="true" class="' . $classes . '"></span>';
-        }
+        if (!$icon) return new InsertTagResult('', OutputType::text);
 
-        if ($insertTag === 'svguse') {
-            return '<svg aria-hidden="true" class="' . $classes . '"><use href="#icon-' . $icon . '"></use></svg>';
-        }
+        $class = $insertTag->getParameters()->get(1);
+        $classes = $class ? 'icon-' . $icon . ' ' . str_replace(',', ' ', trim(htmlspecialchars($class, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'))) : 'icon-' . $icon;
 
-        if ($insertTag === 'svgimport' && file_exists(Environment::get('documentRoot') . '/../files/' . $icon . '.svg')) {
-            return file_get_contents(Environment::get('documentRoot') . '/../files/' . $icon . '.svg');
-        }
+        return new InsertTagResult('<span aria-hidden="true" class="' . $classes . '"></span>', OutputType::html);
+    }
 
-        return false;
+    #[AsInsertTag('svguse')]
+    public function renderSvgUse(ResolvedInsertTag $insertTag): InsertTagResult
+    {
+        $icon = $insertTag->getParameters()->get(0);
+
+        if (!$icon) return new InsertTagResult('', OutputType::text);
+
+        $class = $insertTag->getParameters()->get(1);
+        $classes = $class ? 'icon-' . $icon . ' ' . str_replace(',', ' ', trim(htmlspecialchars($class, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'))) : 'icon-' . $icon;
+
+        return new InsertTagResult('<svg aria-hidden="true" class="' . $classes . '"><use href="#icon-' . $icon . '"></use></svg>', OutputType::html);
+    }
+
+    #[AsInsertTag('svgimport')]
+    public function renderSvgImport(ResolvedInsertTag $insertTag): InsertTagResult
+    {
+        $icon = basename($insertTag->getParameters()->get(0));
+        $path = $this->projectDir . '/files/' . $icon . '.svg';
+
+        if (!file_exists($path)) return new InsertTagResult('', OutputType::text);
+
+        $html = (string) file_get_contents($path);
+
+        return new InsertTagResult($html, OutputType::html);
     }
 }
