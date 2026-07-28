@@ -52,7 +52,7 @@ class ReplaceInsertTagsListener
     #[AsInsertTag('svgimport')]
     public function renderSvgImport(ResolvedInsertTag $insertTag): InsertTagResult
     {
-        $icon = basename($insertTag->getParameters()->get(0));
+        $icon = $insertTag->getParameters()->get(0);
         $path = $this->projectDir . '/files/' . $icon . '.svg';
 
         if (!file_exists($path)) return new InsertTagResult('', OutputType::text);
