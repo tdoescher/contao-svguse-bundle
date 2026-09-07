@@ -14,16 +14,16 @@ Der **{{svgicon::phone}}** Insert-Tag wird zu:
 
 Der **{{svguse::mail}}** Insert-Tag wird zu:
 
-`<svg class="icon icon-mail"><use xlink:href="#icon-mail"></use></svg>`
+`<svg class="icon-mail"><use xlink:href="#icon-mail"></use></svg>`
 
 Der **{{svgimport::theme/svg/facebook}}** Insert-Tag wird zu:
 
-`<svg class="icon icon-facebook" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">...</svg>`
+`<svg class="icon-facebook" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">...</svg>`
 
 ## CSS-Klassen: ##
 
-Mittels zweiten Parameter kann man den Insert-Tags **{{svgicon::id}}** und **{{svguse::id}}** CSS-Klassen mitgeben.
+Mittels zweitem Parameter kann man dem Insert-Tags **{{svgicon::id}}** und **{{svguse::id}}** CSS-Klassen mitgeben.
 
 Der **{{svguse::mail::circle}}** Insert-Tag wird zu:
 
-`<svg class="icon icon-mail circle"><use xlink:href="#icon-mail"></use></svg>`
+`<svg class="icon-mail circle"><use xlink:href="#icon-mail"></use></svg>`

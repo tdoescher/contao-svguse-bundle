@@ -13,7 +13,7 @@
   ],
   "require": {
     "php": ">=8.1",
-    "contao/core-bundle": "^5.6"
+    "contao/core-bundle": "^5.6 || ^6.0"
   },
   "extra": {
     "contao-manager-plugin": "tdoescher\\SvgUseBundle\\ContaoManager\\Plugin"
